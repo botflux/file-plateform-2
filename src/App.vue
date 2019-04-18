@@ -1,16 +1,39 @@
 <template>
   <v-app>
+    <v-navigation-drawer app v-model="isDrawerActive" temporary>
+      <v-list class="pa-1">
+        <v-list-tile>
+          <v-list-tile-content>
+            <v-list-tile-title>{{ isAnon ? `Vous n'êtes pas connecté` : user.email }}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+
+      <v-list class="pt-0" dense>
+        <v-divider></v-divider>
+
+        <v-list-tile
+          v-for="link in links"
+          :key="link.title"
+          @click="dismissDrawer"
+          :to="link.to"
+        >
+          <v-list-tile-action>
+            <v-icon>{{ link.icon }}</v-icon>
+          </v-list-tile-action>
+
+          <v-list-tile-content>
+            <v-list-tile-title>{{ link.title }}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+    </v-navigation-drawer>
     <v-toolbar app>
+    <v-toolbar-side-icon @click="isDrawerActive = !isDrawerActive"></v-toolbar-side-icon>
       <v-toolbar-title class="headline">
-        <router-link to="/">File Plateform</router-link>
+        <span>File Plateform</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn
-        flat
-        :to="{ name: 'login' }"
-      >
-        <span class="mr-2">Connexion</span>
-      </v-btn>
       <v-btn
         v-if="isAnon"
         flat
@@ -53,13 +76,20 @@ export default {
         type: '',
         message: ''
       },
-      timeout: 4000
+      timeout: 4000,
+      isDrawerActive: false,
+      links: [
+        { icon: 'home', title: 'Accueil', to: { name: 'home' } },
+        { icon: 'spellcheck', title: 'Vérifier caractères', to: { name: 'home' } },
+        { icon: 'transform', title: 'Transformer des données', to: { name: 'home' } }
+      ]
     }
   },
   computed: {
     ...mapState({
       flashMessages: state => state.flashMessages,
-      token: state => state.token
+      token: state => state.token,
+      user: state => state.payload
     }),
     ...mapGetters({
       isAnon: types.IS_ANON
@@ -78,6 +108,9 @@ export default {
     async disconnectUser () {
       await this[types.DISCONNECT]()
       this.$router.push('/login')
+    },
+    dismissDrawer () {
+      this.isDrawerActive = !this.isDrawerActive
     }
   },
   watch: {
