@@ -1,12 +1,15 @@
 const makeGetToken = (fetch, { baseUrl }) => (email, password) => {
+
+    const data = new FormData()
+
+    data.append('email', email)
+    data.append('password', password)
+
     return fetch(`${baseUrl}/login`, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'multipart/form-data'
-        },
-        body: { email, password },
+        body: data,
     })
-    .then(res => res.text())
+    .then(res => res.json())
 }
 
 export { makeGetToken }
