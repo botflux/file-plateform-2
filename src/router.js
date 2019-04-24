@@ -32,7 +32,14 @@ const router = new Router({
       meta: {
         authorizedRoles: ['']
       }
-    }
+    }, {
+      path: '/tool',
+      name: 'tool',
+      component: () => import(/* webpackChunkName: "tool" */'./views/tool.vue'),
+      meta: {
+        authorizedRoles: ['ROLE_ADMIN', 'ROLE_USER']
+      }
+     }
   ],
 })
 
