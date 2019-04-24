@@ -1,23 +1,24 @@
 <template>
-    <v-container>
-        <!-- Loader -->
-        <div class="text-cs-center">
-            <v-dialog v-model="isLoading" persistent width="300">
-                <v-card>
-                    <v-card-text>
-                        Fichier en cours de traitement
-                        <v-progress-linear
-                            indeterminate
-                            color="primary"
-                            class="mb-0"
-                        ></v-progress-linear>
-                    </v-card-text>
-                </v-card>
-            </v-dialog>
-        </div>
-        <!-- /Loader -->
-        <!-- Headline -->
-        <v-layout class="mb-4">
+    <base-tool>
+        <template v-slot:modal>
+            <!-- Loader -->
+            <div class="text-cs-center">
+                <v-dialog v-model="isLoading" persistent width="300">
+                    <v-card>
+                        <v-card-text>
+                            Fichier en cours de traitement
+                            <v-progress-linear
+                                indeterminate
+                                color="primary"
+                                class="mb-0"
+                            ></v-progress-linear>
+                        </v-card-text>
+                    </v-card>
+                </v-dialog>
+            </div>
+            <!-- /Loader -->
+        </template>
+        <template v-slot:headline>
             <v-flex>
                 <v-card>
                     <v-card-title>
@@ -31,11 +32,9 @@
                     </v-card-text>
                 </v-card>
             </v-flex>
-        </v-layout>
-        <!-- /Headline -->
+        </template>
 
-        <!-- Body -->
-        <v-layout>
+        <template v-slot:body>
             <v-flex>
                 <v-stepper v-model="currentStep">
                     <v-stepper-header>
@@ -94,9 +93,8 @@
                     </v-stepper-items>
                 </v-stepper>
             </v-flex>
-        </v-layout>
-        <!-- /Body -->
-    </v-container>
+        </template>
+    </base-tool>
 </template>
 
 <script>
@@ -108,10 +106,15 @@ import * as types from '../stores/types'
 
 import { makeCheckCharacter } from '../api/character-checker'
 
+import BaseTool from '../components/BaseTool'
+
 const { mapActions, mapState } = createNamespacedHelpers('user')
 
 export default {
     mixins: [validationMixin],
+    components: {
+        'base-tool': BaseTool
+    },
     data () {
         return {
             currentStep: 1,
