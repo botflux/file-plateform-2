@@ -80,7 +80,7 @@ export default {
       isDrawerActive: false,
       links: [
         { icon: 'home', title: 'Accueil', to: { name: 'home' } },
-        { icon: 'spellcheck', title: 'Vérifier caractères', to: { name: 'home' } },
+        { icon: 'spellcheck', title: 'Vérifier caractères', to: { name: 'character-checker' } },
         { icon: 'transform', title: 'Transformer des données', to: { name: 'home' } }
       ]
     }

@@ -33,9 +33,9 @@ const router = new Router({
         authorizedRoles: ['']
       }
     }, {
-      path: '/tool',
-      name: 'tool',
-      component: () => import(/* webpackChunkName: "tool" */'./views/tool.vue'),
+      path: '/tool/character-checker',
+      name: 'character-checker',
+      component: () => import(/* webpackChunkName: "tool" */'./views/character-checker.vue'),
       meta: {
         authorizedRoles: ['ROLE_ADMIN', 'ROLE_USER']
       }

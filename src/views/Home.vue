@@ -30,7 +30,7 @@
             title: 'Vérification de caractères',
             description: `Vérifiez que les fichiers encodés avec ISO 8859-1 (latin1) ne possède pas de caractère non inclus dans l'encodage.`,
             to: {
-              name: 'tool'
+              name: 'character-checker'
             } 
           }, { 
             title: 'Vérification de caractères',
