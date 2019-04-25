@@ -45,7 +45,7 @@ export default {
                 message: 'Vous êtes connecté'
             })
 
-            this.$route.push('/')
+            // this.$route.push('/')
         }
     },
 }
