@@ -104,8 +104,6 @@ import { validationMixin } from 'vuelidate'
 import { createNamespacedHelpers } from 'vuex'
 import * as types from '../stores/types'
 
-import { makeCheckCharacter } from '../api/character-checker'
-
 import BaseTool from '../components/BaseTool'
 
 const { mapActions, mapState } = createNamespacedHelpers('user')
@@ -144,11 +142,10 @@ export default {
         changeFile (e) {
             const file = e.target.files[0]
             this.fileToVerify = file ? file : null
-            const checkCharacter = makeCheckCharacter(fetch, { baseUrl: `http://localhost:3000`, token: this.token })
 
             if (file) {
                 this.isLoading = true
-                checkCharacter(file)
+                this.$makeAPI().checkCharacter(file)
                     .then(issues => {
                         this[types.ADD_FLASH_MESSAGE] ({
                             type: 'success',

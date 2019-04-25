@@ -67,8 +67,6 @@ const { mapState, mapActions, mapGetters } = createNamespacedHelpers('user')
 
 export default {
   name: 'App',
-  mounted () {
-  },
   data () {
     return {
       showCurrentMessage: false,

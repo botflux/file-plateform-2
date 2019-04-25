@@ -48,9 +48,6 @@ import { required, maxLength, email } from 'vuelidate/lib/validators'
 import { createNamespacedHelpers } from 'vuex'
 import * as types from '../stores/types'
 
-import * as user from '../api/user'
-
-const getToken = user.makeGetToken(window.fetch, { baseUrl: 'http://127.0.0.1:3000' })
 const { mapActions, mapState } = createNamespacedHelpers('user')
 
 export default {
@@ -65,6 +62,10 @@ export default {
             show: false,
             isLoading: false
         }
+    },
+    mounted () {
+        // console.log(this.api)
+        console.log('makeAPi',this.$makeAPI())
     },
     computed: {
         emailErrors () {
@@ -87,7 +88,7 @@ export default {
             if (!this.$v.$anyError) {
                 this.isLoading = true
 
-                getToken(this.email, this.password)
+                this.$makeAPI().getToken(this.email, this.password)
                     .then(data => {
                         this[types.SET_PAYLOAD] (data.payload)
                         this[types.SET_TOKEN] (data.token) 
@@ -99,6 +100,7 @@ export default {
                         this.$router.push('/')
                     })
                     .catch(e => {
+                        console.log(e)
                         this[types.ADD_FLASH_MESSAGE] ({
                             type: 'error',
                             message: 'Identifiants incorrects'
