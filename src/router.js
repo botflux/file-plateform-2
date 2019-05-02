@@ -39,7 +39,14 @@ const router = new Router({
       meta: {
         authorizedRoles: ['ROLE_ADMIN', 'ROLE_USER']
       }
-     }
+     }, {
+       path: '/tool/cities-exists',
+       name: 'cities-exists',
+       component: () => import(/* webpackChunkName: "cities" */'./views/cities.vue'),
+       meta: {
+         authorizedRoles: ['ROLE_ADMIN', 'ROLE_USER']
+       }
+     },
   ],
 })
 
